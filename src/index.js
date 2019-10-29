@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import Followers from "./Followers";
+import styled from "styled-components";
+import "./App.css";
 
 class App extends React.Component {
   state = {
@@ -34,24 +36,55 @@ class App extends React.Component {
   }
 
   render() {
+    const CardContainer = styled.div`
+      display: flex;
+      margin: 40px;
+      flex-wrap: wrap;
+    `;
+
+    const Card = styled.div`
+      background-color: white;
+      border: 1px solid #443e3e;
+      box-shadow: 0px 5px 20px rgb(71, 71, 71);
+      border-radius: 15px;
+      width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    `;
+
+    const Image = styled.img`
+      border-radius: 15px;
+      width: 500px;
+    `;
+
+    const Username = styled.h2`
+      color: black;
+      font-weight: bold;
+      text-align: center;
+    `;
+
+    const UserInfo = styled.p`
+      color: black;
+      text-align: center;
+    `;
     return (
-      <div className="user-card">
-        <div className="App">
-          <img
-            className="avatar"
+      <CardContainer>
+        <Card>
+          <Image
             src={this.state.user.avatar_url}
-            alt="follower avatar"
-          ></img>
-          <h2>Username: {this.state.user.login}</h2>
-          <p>
+            alt="Follower Profile Picture"
+          ></Image>
+          <Username>Username: {this.state.user.login}</Username>
+          <UserInfo>
             Profile:{" "}
             <a href={this.state.user.html_url}>{this.state.user.html_url}</a>
-          </p>
-          <p>Followers: {this.state.user.followers}</p>
-          <p> Following: {this.state.user.following}</p>
-        </div>
+          </UserInfo>
+          <UserInfo>Followers: {this.state.user.followers}</UserInfo>
+          <UserInfo> Following: {this.state.user.following}</UserInfo>
+        </Card>
         <Followers follower={this.state.followers} />
-      </div>
+      </CardContainer>
     );
   }
 }
